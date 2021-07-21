@@ -10,6 +10,7 @@
 import { getConfig, sessionStarted, sessionFinished, sessionFailed } from '@web/test-runner-core/browser/session.js';
 
 const jasmine = jasmineRequire.core(window.jasmineRequire);
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
 const global = jasmine.getGlobal();
 global.jasmine = jasmine;
 const env = jasmine.getEnv();
@@ -60,7 +61,6 @@ env.addReporter({
 
 (async () => {
   sessionStarted();
-
   const { testFile, watch, debug, testFrameworkConfig } = await getConfig();
 
   await import(new URL(testFile, document.baseURI).href).catch(error => {

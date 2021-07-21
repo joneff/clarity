@@ -14,6 +14,9 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   // uncomment open/manual to debug in browser
   // open: true,
   // manual: true,
+  testFramework: {
+    config: {},
+  },
   files: ['./src/**/*.spec.ts'],
   testsFinishTimeout: 20000,
   browsers: [playwrightLauncher({ product: 'chromium' })],
@@ -27,6 +30,8 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
       '**/test/**',
       '**/dist/core/**/index.js',
       '**/dist/core/**/register.js',
+      '**/dist/core/polyfills/*.js',
+      '**/dist/core/grid/dropdown.element.js', // temporary
     ],
     report: true,
     reportDir: 'dist/coverage',
@@ -38,13 +43,15 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
     },
   },
   nodeResolve: true,
+  dedupe: true,
   plugins: [
     ...baseConfig.plugins,
-    esbuildPlugin({ ts: true, json: true, target: 'auto' }),
-    fromRollup(execute)({ commands: [`tsc --noEmit src/**/*.spec.ts`], hook: 'writeBundle' }),
+    esbuildPlugin({ ts: true, json: true, target: 'auto', sourceMap: true }),
+    fromRollup(execute)({ commands: [`tsc --noEmit src/**/*.spec.ts src/**/*.spec.*`], hook: 'writeBundle' }),
   ],
   testRunnerHtml: (testRunnerImport, config) => `<html>
     <head>
+      <!-- <link href="./node_modules/modern-normalize/modern-normalize.css" rel="stylesheet" /> -->
       <link href="./dist/core/global.min.css" rel="stylesheet" />
       <script>window.process = { env: { NODE_ENV: "development" } }</script>
       <script type="text/javascript" src="./node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>

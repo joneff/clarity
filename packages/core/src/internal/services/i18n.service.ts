@@ -8,7 +8,13 @@ import { GlobalStateService } from './global.service.js';
 
 export interface I18nStrings {
   [key: string]: { [key: string]: string | undefined };
-
+  actions: {
+    sort: string;
+    expand: string;
+    close: string;
+    resize: string;
+    filter: string;
+  };
   alert: {
     closeButtonAriaLabel: string;
     loading: string;
@@ -38,9 +44,23 @@ export interface I18nStrings {
   treeview: {
     loading: string;
   };
+  grid: {
+    resizeColumn: string;
+    closeDetails: string;
+    noData: string;
+    rowDetailStart: string;
+    rowDetailEnd: string;
+  };
 }
 
 export const componentStringsDefault = {
+  actions: {
+    sort: 'Sort',
+    expand: 'Expand',
+    close: 'Close',
+    resize: 'Resize',
+    filter: 'Filter',
+  },
   alert: {
     closeButtonAriaLabel: 'Close',
     loading: 'Loading',
@@ -76,9 +96,16 @@ export const componentStringsDefault = {
   treeview: {
     loading: 'Loading',
   },
+  grid: {
+    resizeColumn: 'Resize Column',
+    closeDetails: 'Close Details',
+    noData: 'No Available Data',
+    rowDetailStart: 'Start of row details',
+    rowDetailEnd: 'End of row details',
+  },
 };
 
-/**
+/*
  * We want the user to be able to not only override a subset of the keys (e.g. only override strings
  * for aalert) but also be able to override a subset of values for that key (e.g. only override
  * the closeButtonAriaLabel). This type is defined here for the localize method in the I18nService.

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CdsModule } from '@cds/angular';
 
 import { cloudIcon, ClarityIcons } from '@cds/core/icon';
 import '@cds/core/icon/register.js';
@@ -23,11 +24,12 @@ import '@cds/core/toggle/register.js';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { VMService } from './vm.service';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, ReactiveFormsModule, AppRoutingModule],
-  providers: [],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, CdsModule],
+  providers: [VMService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA], // temp for @cds/angular once update to angular 12.x
 })

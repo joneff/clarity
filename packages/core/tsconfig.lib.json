@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "types": [],
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "rootDir": "./src",
     "incremental": true,
     "isolatedModules": true,
@@ -10,5 +10,5 @@
     "tsBuildInfoFile": "./dist/core/.tsbuildinfo"
   },
   "allowSyntheticDefaultImports": false,
-  "exclude": ["**/*.spec.ts", "dist", "node_modules", "./storybook", "**/*.stories.ts", "./build"]
+  "exclude": ["**/*.spec.ts", "**/*.performance.ts", "**/*.a11y.ts", "dist", "node_modules", "./storybook", "**/*.stories.ts", "./build"]
 }

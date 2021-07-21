@@ -24,7 +24,6 @@
   cursor: pointer;
 }
 
-:host(:hover:not([disabled]))::after,
 :host([_has-focus])::after {
   content: '';
   position: absolute;

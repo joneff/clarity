@@ -29,8 +29,9 @@ const config = {
   baseDir: './src',
   outDir: './dist/core',
   entryPoints: {
-    modules: ['./src', './src/internal', './src/test'],
+    modules: ['./src', './src/internal', './src/polyfills', './src/demo', './src/test'],
     components: [
+      './src/actions',
       './src/accordion',
       './src/alert',
       './src/badge',
@@ -43,6 +44,7 @@ const config = {
       './src/divider',
       './src/file',
       './src/forms',
+      './src/grid',
       './src/icon',
       './src/input',
       './src/internal-components/close-button',
@@ -81,7 +83,9 @@ const config = {
     explicitExports: [
       { input: './icon/shapes/*', output: './icon/shapes/*' },
       { input: './icon/icon.service.js', output: './icon/icon.service.js' },
+      { input: './polyfills/index.js', output: './polyfills/index.js' },
     ],
+    explicitSideEffects: ['./polyfills/index.js', './polyfills/at.js', './polyfills/aria-reflect.js'],
   },
 };
 

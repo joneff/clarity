@@ -23,9 +23,6 @@ import styles from './breadcrumb.element.scss';
  * @cssprop --color
  */
 export class CdsBreadcrumb extends LitElement {
-  @state({ type: String, reflect: true, attribute: 'role' })
-  protected role = 'navigation';
-
   @state({ type: Array }) private navItems: Element[] = [];
 
   @querySlot('[slot="cds-separator"]') private customSeparator: HTMLElement;
@@ -47,6 +44,12 @@ export class CdsBreadcrumb extends LitElement {
       <slot @slotchange=${this.assignSlots}></slot>
     `;
   }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.role = 'navigation';
+  }
+
   private get separator() {
     if (this.customSeparator) {
       const separatorClone = this.customSeparator.cloneNode(true) as Element;

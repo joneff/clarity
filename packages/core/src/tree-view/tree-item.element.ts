@@ -8,7 +8,6 @@ import {
   Animatable,
   animate,
   AnimationTreeItemExpandName,
-  AriaBooleanAttributeValues,
   baseStyles,
   createId,
   event,
@@ -71,15 +70,6 @@ export class CdsTreeItem extends LitElement implements Animatable {
 
   @event()
   cdsMotionChange: EventEmitter<string>;
-
-  @state({ type: String, reflect: true, attribute: 'aria-disabled' })
-  ariaDisabled: AriaBooleanAttributeValues | undefined = 'false';
-
-  @state({ type: String, reflect: true, attribute: 'aria-expanded' })
-  ariaExpanded: AriaBooleanAttributeValues | undefined = 'false';
-
-  @state({ type: String, reflect: true, attribute: 'aria-selected' })
-  ariaSelected: AriaBooleanAttributeValues | undefined = 'false';
 
   @property({ type: Boolean, reflect: true, attribute: 'multi-select' })
   multiSelect = false;

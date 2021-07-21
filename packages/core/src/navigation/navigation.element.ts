@@ -69,8 +69,8 @@ export const CdsNavigationTagName = 'cds-navigation';
  * @cssprop --nested-padding
  * @cssprop --padding
  * @slot
- * @slot - cds-navigation-substart - project content below the navigation toggle button
- * @slot - cds-navigation-end - project content below the scrollable section
+ * @slot cds-navigation-substart - project content below the navigation toggle button
+ * @slot cds-navigation-end - project content below the scrollable section
  */
 @animate({
   expanded: {
@@ -101,12 +101,6 @@ export class CdsNavigation extends LitElement implements Animatable {
    */
   @state({ type: Boolean })
   protected groupItem = true;
-
-  /**
-   * Set and update the aria-active descended value onto the navigation.
-   */
-  @state({ type: String })
-  ariaActiveDescendant: any;
 
   /**
    *
@@ -399,7 +393,7 @@ export class CdsNavigation extends LitElement implements Animatable {
           <div
             class="navigation-body-wrapper"
             cds-layout="p-y:xxs"
-            aria-activedescendant="${this.ariaActiveDescendant}"
+            .ariaActiveDescendant=${this.ariaActiveDescendant}
             tabindex="0"
             id="item-container"
           >

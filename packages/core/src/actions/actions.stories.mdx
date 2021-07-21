@@ -1,0 +1,87 @@
+import { Meta, Props, Story, Preview } from '@web/storybook-prebuilt/addon-docs/blocks.js';
+
+<Meta title="Components/Actions" />
+
+# Actions
+
+<cds-alert-group status="warning" cds-layout="m-b:lg">
+  <cds-alert>
+    This component or utility is offered as a preview. This means we are currently working on it and seeking feedback.
+    Please be aware that this component or utility may have breaking changes before we finish working on it.
+  </cds-alert>
+</cds-alert-group>
+
+Action buttons are icon style buttons with defined behaviors. The standard `cds-action` button
+provides the proper touch target and states for icon buttons. Several extended types
+are also provided which add specific accessible micro-interactions.
+
+## Installation
+
+```typescript
+import '@cds/core/actions/register.js';
+```
+
+## Usage
+
+```html
+<cds-action aria-label="open options"></cds-action>
+<cds-action shape="bars" aria-label="open menu"></cds-action>
+<cds-action shape="filter" aria-label="filter column"></cds-action>
+<cds-action shape="close" aria-label="close message"></cds-action>
+```
+
+<Story id="stories-actions--action" />
+
+## Action Sort
+
+The `cds-action-sort` provides the proper accessible aria attributes for sortable
+type features. To defined the current sort state set the `sort` attribute/property
+to one of the following `ascending/descending/none`.
+
+```html
+<cds-action-sort sort="none" aria-label="sort item"></cds-action-sort>
+<cds-action-sort sort="ascending" aria-label="sort item"></cds-action-sort>
+<cds-action-sort sort="descending" aria-label="sort item"></cds-action-sort>
+```
+
+<Story id="stories-actions--action-sort" />
+
+## Action Expand
+
+The `cds-action-expand` is for actions that trigger content to be expanded or shown to the user.
+The `cds-action-expand` provides three expand action styles `'vertical' | 'horizontal' | 'detail'`.
+
+```html
+<cds-action-expand expanded action="vertical" aria-label="close details"></cds-action-expand>
+<cds-action-expand action="horizontal" aria-label="show more"></cds-action-expand>
+<cds-action-expand action="detail" aria-label="show details"></cds-action-expand>
+```
+
+<Story id="stories-actions--action-expand" />
+
+## Action Handle
+
+The `cds-action-handle` provides an anchor/handle for users to use for drag and
+drop style features.
+
+```html
+<cds-action-handle aria-label="move item"></cds-action-handle>
+```
+
+<Story id="stories-actions--action-handle" />
+
+## Action Resize
+
+The `cds-action-resize` component provides a action button as a resize handle for
+resizable type features. The component also provides two direction options `vertical` and `horizontal`.
+
+```html
+<cds-action-resize direction="vertical" aria-label="resize column"></cds-action-resize>
+<cds-action-resize direction="horizontal" aria-label="resize column"></cds-action-resize>
+```
+
+<Story id="stories-actions--action-resize" />
+
+## API
+
+<Props of={'cds-action'} />
