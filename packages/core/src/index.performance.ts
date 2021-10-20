@@ -6,19 +6,21 @@
 
 import { testBundleSize } from 'web-test-runner-performance/browser.js';
 
-describe('bundle performance', () => {
-  // it(`should meet maximum css bundle size limits`, async () => {
-  //   expect((await testBundleSize(`import '@cds/core/global.min.css'`)).brotli).toBeLessThan(8);
-  //   expect((await testBundleSize(`import '@cds/core/styles/module.layout.min.css'`)).brotli).toBeLessThan(4);
-  //   expect((await testBundleSize(`import '@cds/core/styles/module.reset.min.css'`)).brotli).toBeLessThan(0.5);
-  //   expect((await testBundleSize(`import '@cds/core/styles/module.tokens.min.css'`)).brotli).toBeLessThan(2.4);
-  //   expect((await testBundleSize(`import '@cds/core/styles/module.typography.min.css'`)).brotli).toBeLessThan(1.6);
-  //   expect((await testBundleSize(`import '@cds/core/styles/module.shims.min.css'`)).brotli).toBeLessThan(1.5);
-  //   expect((await testBundleSize(`import '@cds/core/styles/theme.dark.min.css'`)).brotli).toBeLessThan(0.5);
-  //   expect((await testBundleSize(`import '@cds/core/list/list.min.css'`)).brotli).toBeLessThan(0.5);
-  // });
+describe('performance', () => {
+  it(`should meet maximum individual css bundle size limits`, async () => {
+    expect((await testBundleSize('@cds/core/global.min.css')).kb).toBeLessThan(8.5);
+    expect((await testBundleSize('@cds/core/styles/theme.dark.min.css')).kb).toBeLessThan(0.5);
+    expect((await testBundleSize('@cds/core/list/list.min.css')).kb).toBeLessThan(0.5);
 
-  it(`should bundle and treeshake all components in under 60kb`, async () => {
+    // contained in @cds/core/global.min.css
+    expect((await testBundleSize('@cds/core/styles/module.layout.min.css')).kb).toBeLessThan(4.2);
+    expect((await testBundleSize('@cds/core/styles/module.reset.min.css')).kb).toBeLessThan(0.5);
+    expect((await testBundleSize('@cds/core/styles/module.tokens.min.css')).kb).toBeLessThan(2.6);
+    expect((await testBundleSize('@cds/core/styles/module.typography.min.css')).kb).toBeLessThan(1.6);
+    expect((await testBundleSize('@cds/core/styles/module.shims.min.css')).kb).toBeLessThan(1.5);
+  });
+
+  it(`should bundle and treeshake all components`, async () => {
     const bundle = `
       import '@cds/core/accordion/register.js';
       import '@cds/core/actions/register.js';
@@ -31,9 +33,9 @@ describe('bundle performance', () => {
       import '@cds/core/datalist/register.js';
       import '@cds/core/date/register.js';
       import '@cds/core/divider/register.js';
+      import '@cds/core/grid/register.js';
       import '@cds/core/file/register.js';
       import '@cds/core/forms/register.js';
-      import '@cds/core/grid/register.js';
       import '@cds/core/icon/register.js';
       import '@cds/core/input/register.js';
       import '@cds/core/modal/register.js';
@@ -51,7 +53,6 @@ describe('bundle performance', () => {
       import '@cds/core/toggle/register.js';
       import '@cds/core/tree-view/register.js';`;
 
-    const result = await testBundleSize(bundle);
-    expect(result.brotli).toBeLessThan(60);
+    expect((await testBundleSize(bundle)).kb).toBeLessThan(55);
   });
 });

@@ -7,6 +7,7 @@
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { fromRollup } from '@web/dev-server-rollup';
+import { defaultReporter } from '@web/test-runner';
 import execute from 'rollup-plugin-shell';
 import baseConfig from './web-dev-server.config.mjs';
 
@@ -48,6 +49,9 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
     ...baseConfig.plugins,
     esbuildPlugin({ ts: true, json: true, target: 'auto', sourceMap: true }),
     fromRollup(execute)({ commands: [`tsc --noEmit src/**/*.spec.ts src/**/*.spec.*`], hook: 'writeBundle' }),
+  ],
+  reporters: [
+    defaultReporter({ reportTestResults: true, reportTestProgress: true }),
   ],
   testRunnerHtml: (testRunnerImport, config) => `<html>
     <head>

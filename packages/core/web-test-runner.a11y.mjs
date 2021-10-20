@@ -17,7 +17,7 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   ...baseConfig,
   concurrency: 1,
   concurrentBrowsers: 1,
-  files: ['./src/**/index.a11y.ts'],
+  files: ['./src/grid/index.a11y.ts'],
   testsFinishTimeout: 60000,
   browsers: [playwrightLauncher({ product: 'webkit', launchOptions: { headless: false } })],
   plugins: [

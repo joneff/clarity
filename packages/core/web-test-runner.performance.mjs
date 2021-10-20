@@ -1,13 +1,14 @@
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { esbuildPlugin } from '@web/dev-server-esbuild';
-import { bundleSizePlugin } from 'web-test-runner-performance';
+import { defaultReporter } from '@web/test-runner';
+import { renderPerformancePlugin, bundlePerformancePlugin, performanceReporter } from 'web-test-runner-performance';
 import { fromRollup } from '@web/dev-server-rollup';
 import alias from '@rollup/plugin-alias';
 import baseConfig from './web-test-runner.config.mjs';
 
 const rollupAlias = fromRollup(alias);
 
-const entries = [
+const aliases = [
   { find: /^@cds\/core\/([^.]+)$/, replacement: `${process.cwd()}/dist/core/$1/index.js` },
   { find: /^@cds\/core\/(.+)\.js$/, replacement: `${process.cwd()}/dist/core/$1.js` },
   { find: /^@cds\/core\/(.+)\.css$/, replacement: `${process.cwd()}/dist/core/$1.css` },
@@ -19,14 +20,24 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   ...baseConfig,
   concurrency: 1,
   concurrentBrowsers: 1,
-  files: ['./src/**/index.performance.ts'],
-  browsers: [playwrightLauncher({ product: 'chromium', launchOptions: { headless: false } })],
+  testFramework: {
+    config: {
+      defaultTimeoutInterval: 60000,
+    },
+  },
+  files: ['./src/**/*.performance.ts'],
+  browsers: [playwrightLauncher({ product: 'chromium', launchOptions: { headless: !!process.env.GITHUB_ACTION } })],
   plugins: [
-    rollupAlias({ entries }),
+    rollupAlias({ entries: aliases }),
     esbuildPlugin({ ts: true, json: true, target: 'auto' }),
-    bundleSizePlugin({
-      external: [/^tslib/, /^ramda/, /^@lit/, /^lit/, /^lit-html/, /^lit-element/],
-      aliases: { entries },
+    renderPerformancePlugin(),
+    bundlePerformancePlugin({
+      aliases,
+      // writePath: `./dist/performance`, // uncomment to see bundle output with sourcemaps
     }),
+  ],
+  reporters: [
+    defaultReporter({ reportTestResults: true, reportTestProgress: true }),
+    performanceReporter({ writePath: `./dist/performance` }),
   ],
 });

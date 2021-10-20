@@ -20,10 +20,6 @@ export class InlineFocusTrapController {
     );
   }
 
-  private get boundaries() {
-    return Array.from(this.root.querySelectorAll('[cds-focus-boundary]'));
-  }
-
   private get root() {
     return (this.host.shadowRoot ? this.host.shadowRoot : this.host) as HTMLElement;
   }

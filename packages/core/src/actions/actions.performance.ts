@@ -11,7 +11,7 @@ import '@cds/core/actions/register.js';
 describe('cds-action bundle performance', () => {
   it(`should bundle and treeshake component in under 19kb`, async () => {
     const result = await testBundleSize(`import '@cds/core/actions/register.js'`);
-    expect(result.brotli).toBeLessThan(19);
+    expect(result.kb).toBeLessThan(19);
   });
 });
 

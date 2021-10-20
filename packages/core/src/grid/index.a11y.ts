@@ -300,7 +300,7 @@ describe('cds-grid multi select', () => {
   let testElement: HTMLElement;
 
   beforeEach(async () => {
-    testElement = await createTestElement(html` <cds-grid aria-label="row multi select datagrid" height="360">
+    testElement = await createTestElement(html` <cds-grid aria-label="row multi select datagrid" selectable="multi" height="360">
       <cds-grid-column type="action">
         <cds-checkbox>
           <input type="checkbox" aria-label="select all hosts" />
@@ -310,10 +310,10 @@ describe('cds-grid multi select', () => {
       <cds-grid-column>status</cds-grid-column>
       <cds-grid-column>CPU</cds-grid-column>
       <cds-grid-column>Memory</cds-grid-column>
-      <cds-grid-row>
+      <cds-grid-row selected>
         <cds-grid-cell>
           <cds-checkbox>
-            <input type="checkbox" value="vm-host-001" aria-label="select vm-host-001" />
+            <input checked type="checkbox" value="vm-host-001" aria-label="select vm-host-001" />
           </cds-checkbox>
         </cds-grid-cell>
         <cds-grid-cell>vm-host-001</cds-grid-cell>
@@ -352,7 +352,7 @@ describe('cds-grid multi select', () => {
     test.queue(Commands.down, 'row 3 of 3 vm-host-002');
     test.queue(Commands.left, 'select vm-host-002 unchecked checkbox');
     test.queue(Commands.space, 'checked select vm-host-002 checkbox');
-    test.queue(Commands.up, 'row 2 of 3 select vm-host-001 unchecked checkbox');
+    test.queue(Commands.up, 'row 2 of 3 select vm-host-001 checked checkbox');
     test.queue(Commands.down, 'row 3 of 3 select vm-host-002 checked checkbox');
     test.queue(Commands.right, 'host vm-host-002 column 2 of 5');
     test.queue(Commands.left, 'select all hosts select vm-host-002 checked checkbox column 1 of 5'); // todo: duplicate read on col header label if checkbox already focused
@@ -367,13 +367,13 @@ describe('cds-grid single select', () => {
   let testElement: HTMLElement;
 
   beforeEach(async () => {
-    testElement = await createTestElement(html` <cds-grid aria-label="row single select datagrid" height="360">
+    testElement = await createTestElement(html` <cds-grid aria-label="row single select datagrid" selectable="single" height="360">
       <cds-grid-column type="action" aria-label="row single select"></cds-grid-column>
       <cds-grid-column>host</cds-grid-column>
       <cds-grid-column>status</cds-grid-column>
       <cds-grid-column>CPU</cds-grid-column>
       <cds-grid-column>Memory</cds-grid-column>
-      <cds-grid-row>
+      <cds-grid-row selected>
         <cds-grid-cell>
           <cds-radio>
             <input type="radio" name="select-row" checked value="vm-host-001" aria-label="select vm-host-001" />
